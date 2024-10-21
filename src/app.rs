@@ -101,6 +101,10 @@ impl Presentation {
         // Load in images
         cc.egui_ctx
             .include_bytes("bytes://crates.png", include_bytes!("../images/crates.png"));
+        cc.egui_ctx.include_bytes(
+            "bytes://wasm-compilers.png",
+            include_bytes!("../images/wasm_compilers.png"),
+        );
         cc.egui_ctx
             .include_bytes("bytes://hennge.png", include_bytes!("../images/hennge.png"));
 

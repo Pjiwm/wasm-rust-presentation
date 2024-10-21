@@ -11,15 +11,30 @@ Demo:
 !!!dancing_strings
 -------------------------------------------------------------------------------
 
-# Integrations
-## Official
-* `eframe`
-* `egui_glow`
-* `egui-wgpu`
-* `egui-winit`
-![crates](bytes://crates.png)
+# What is WebAssembly?
+
+## WebAssembly (Wasm): is a binary instruction format designed to run code efficiently on modern web browsers.
+  ### - Provide a fast and compact runtime for executing code.
+  ### - Enable high-performance applications, such as games, video editing, and scientific simulations, directly in the browser.
+![wasm-compilers](bytes://wasm-compilers.png)
+
 -------------------------------------------------------------------------------
 
+# Use cases
+## - Heavy Computation Tasks: simulations, data analysis
+## - Games and Interactive 3D Graphics running in the browser with near-native execution speed.
+
+## Success stories
+
+### Adobe Photoshop: One of the most prominent examples of WebAssembly in action, Adobe has successfully ported Photoshop to the web using WASM.
+
+### Figma: The popular design tool initially used WebAssembly for certain performance-critical parts of their application,
+### though they’ve been less vocal about their WASM usage in recent years.
+
+### npm libraries: Many npm packages use WebAssembly under the hood
+### often for performance-critical operations compiled from C++ or Rust.
+
+-------------------------------------------------------------------------------
 # Painting demo test
 <!-- ![hennge](bytes://hennge.png) -->
 !!!painting
