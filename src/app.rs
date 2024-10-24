@@ -115,6 +115,10 @@ impl Presentation {
             "bytes://ffmpeg-wasm.png",
             include_bytes!("../images/ffmpeg_wasm.png"),
         );
+        cc.egui_ctx.include_bytes(
+            "bytes://makepad.png",
+            include_bytes!("../images/makepad_piano.png"),
+        );
         if let Some(storage) = cc.storage {
             return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
         }
@@ -127,7 +131,6 @@ impl Presentation {
             cm_cache,
             slides,
             slide_nr,
-
             counter,
             some_bool,
             painting,
@@ -151,7 +154,7 @@ impl Presentation {
             .frame(egui::Frame::none().fill(egui::Color32::WHITE))
             .show(ui.ctx(), |ui| {
                 ui.horizontal(|ui| {
-                    ui.add_space(20.0);
+                    ui.add_space(22.0);
                     ui.vertical(|ui| {
                         CommonMarkViewer::new()
                             .max_image_width(Some(ui.available_width().floor() as _))
