@@ -103,11 +103,18 @@ impl Presentation {
             .include_bytes("bytes://crates.png", include_bytes!("../images/crates.png"));
         cc.egui_ctx.include_bytes(
             "bytes://wasm-compilers.png",
-            include_bytes!("../images/wasm_compilers.png"),
+            include_bytes!("../images/wasm-compile.png"),
+        );
+        cc.egui_ctx.include_bytes(
+            "bytes://rust-wasm.png",
+            include_bytes!("../images/rust_wa.png"),
         );
         cc.egui_ctx
             .include_bytes("bytes://hennge.png", include_bytes!("../images/hennge.png"));
-
+        cc.egui_ctx.include_bytes(
+            "bytes://ffmpeg-wasm.png",
+            include_bytes!("../images/ffmpeg_wasm.png"),
+        );
         if let Some(storage) = cc.storage {
             return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
         }
@@ -140,28 +147,39 @@ impl Presentation {
         let slide = &slides[preview_slide_nr];
         let Slide { markdown, markers } = slide;
         println!("{}", markdown);
-        egui::CentralPanel::default().show(ui.ctx(), |ui| {
-            CommonMarkViewer::new()
-                .max_image_width(Some(ui.available_width().floor() as _))
-                .show(ui, cm_cache, markdown);
-            for marker in markers {
-                slider_marker_ui(ui, marker, counter, some_bool, painting);
-            }
-            // Add space to push the image down
-            ui.add_space(ui.available_height() - 150.0); // Adjust space based on the image height
+        egui::CentralPanel::default()
+            .frame(egui::Frame::none().fill(egui::Color32::WHITE))
+            .show(ui.ctx(), |ui| {
+                ui.horizontal(|ui| {
+                    ui.add_space(20.0);
+                    ui.vertical(|ui| {
+                        CommonMarkViewer::new()
+                            .max_image_width(Some(ui.available_width().floor() as _))
+                            .show(ui, cm_cache, markdown);
+                        for marker in markers {
+                            slider_marker_ui(ui, marker, counter, some_bool, painting);
+                        }
+                    });
+                    ui.add_space(20.0);
+                });
+            });
 
-            // Center the image at the bottom
-            ui.with_layout(
-                egui::Layout::centered_and_justified(egui::Direction::LeftToRight),
-                |ui| {
-                    ui.add(
-                        egui::Image::new("bytes://hennge.png")
-                            .max_width(150.0)
-                            .rounding(10.0),
-                    );
-                },
-            );
-        });
+        egui::TopBottomPanel::bottom("logo_panel")
+            .min_height(80.0)
+            .show_separator_line(false)
+            .frame(egui::Frame::none())
+            .show_inside(ui, |ui| {
+                ui.with_layout(
+                    egui::Layout::centered_and_justified(egui::Direction::LeftToRight),
+                    |ui| {
+                        ui.add(
+                            egui::Image::new("bytes://hennge.png")
+                                .max_width(ui.available_width() / 4.0)
+                                .rounding(10.0),
+                        );
+                    },
+                );
+            });
     }
 }
 

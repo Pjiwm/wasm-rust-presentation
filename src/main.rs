@@ -6,6 +6,8 @@ pub mod demos;
 // When compiling natively:
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result<()> {
+    use egui::Color32;
+
     env_logger::init();
 
     let native_options = eframe::NativeOptions {
@@ -15,7 +17,10 @@ fn main() -> eframe::Result<()> {
         "egui presentation",
         native_options,
         Box::new(|cc| {
-            cc.egui_ctx.set_visuals(egui::Visuals::light());
+            let mut visuals = egui::Visuals::light();
+            visuals.panel_fill = Color32::WHITE;
+            visuals.window_fill = Color32::WHITE;
+            cc.egui_ctx.set_visuals(visuals);
             Ok(Box::new(egui_presentation::Presentation::new(cc)))
         }),
     )

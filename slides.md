@@ -12,61 +12,85 @@ Demo:
 -------------------------------------------------------------------------------
 
 # What is WebAssembly?
+   - a binary instruction format designed to run code efficiently on modern web browsers.
+   - Provide a fast and compact runtime for executing code.
+   - Enable high-performance applications
+   - games
+   - video editing software
+   - scientific simulations 
 
-## WebAssembly (Wasm): is a binary instruction format designed to run code efficiently on modern web browsers.
-  ### - Provide a fast and compact runtime for executing code.
-  ### - Enable high-performance applications, such as games, video editing, and scientific simulations, directly in the browser.
 ![wasm-compilers](bytes://wasm-compilers.png)
 
 -------------------------------------------------------------------------------
 
 # Use cases
-## - Heavy Computation Tasks: simulations, data analysis
-## - Games and Interactive 3D Graphics running in the browser with near-native execution speed.
+ - Heavy Computation Tasks: simulations, data analysis
+ - Games and Interactive 3D Graphics running in the browser (near native speed) 
 
 ## Success stories
 
-### Adobe Photoshop: One of the most prominent examples of WebAssembly in action, Adobe has successfully ported Photoshop to the web using WASM.
+ - Adobe Photoshop: successfully ported Photoshop to the web using WASM.
+ - Figma: used WebAssembly for certain performance-critical parts.
+ - npm libraries: Many npm packages use WebAssembly under the hood.
+ - often for performance-critical operations compiled from C++ or Rust.
 
-### Figma: The popular design tool initially used WebAssembly for certain performance-critical parts of their application,
-### though they’ve been less vocal about their WASM usage in recent years.
-
-### npm libraries: Many npm packages use WebAssembly under the hood
-### often for performance-critical operations compiled from C++ or Rust.
-
+![ffmpeg-wasm](bytes://ffmpeg-wasm.png)
 -------------------------------------------------------------------------------
-# Painting demo test
-<!-- ![hennge](bytes://hennge.png) -->
-!!!painting
+# Why WASM with Rust?
+- Performance with memory safety.
+- Rust's borrow checker.
+- Easy built in WASM support.
+- Many libraries (crates) support WASM out of the box.
+- Handful of UI libraries with WASM support.
+
+![rust-wasm](bytes://rust-wasm.png)
 -------------------------------------------------------------------------------
+# C++
 
-# Context
+```cpp
+#include <iostream>
+#include <string>
 
-How to write your own egui integration:
-```rs
-let mut ctx = egui::Context::default();
-
-// Game loop:
-loop {
-    // Gather keyboard/mouse events:
-    let raw_input = window.collect_input();
-
-    // Run egui:
-    let output = ctx.run(raw_input, |ctx| {
-        egui::CentralPanel::default().show(&ctx, |ui| {
-            ui.label("Hello world!");
-            if ui.button("Click me").clicked() {
-                // take some action here
-            }
-        });
-    });
-
-    // Set cursor icon, set clipboard, open url, …
-    window.handle_platform_output(output.platform_output);
-
-    let triangles = ctx.tessellate(output.shapes);
-    window.paint(output.textures_delta, triangles);
+void namePet(std::string &pet) {
+    pet += " Poochie";
 }
+
+int main() {
+    std::string dog = "🐶";
+    namePet(dog);
+    std::cout << dog << std::endl;
+    return 0;
+}
+```
+
+🐶 Poochie Poochie
+-------------------------------------------------------------------------------
+# Rust
+```rs
+fn main() {
+    let dog = String::from("🐶");
+    name_pet(dog);
+    name_pet(dog);
+    println!("{}", dog);
+}
+
+fn name_pet(mut pet: String) {
+    pet.push_str("Poochie")
+}
+```
+```red
+error[E0382]: use of moved value: `dog`
+ --> src/main.rs:4:14
+  |
+2 |     let dog = String::from("🐶");
+  |         --- move occurs because `dog` has type `String`, which does not implement the `Copy` trait
+3 |     name_pet(dog);
+  |              --- value moved here
+4 |     name_pet(dog);
+  |              ^^^ value used here after move
+  |
+note: consider changing this parameter type in function `name_pet` to borrow instead if owning the value isn't necessary
+ 
 ```
 -------------------------------------------------------------------------------
 
