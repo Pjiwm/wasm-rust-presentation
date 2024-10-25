@@ -115,8 +115,7 @@ Simple widgets or components that could be made using the JS DOM as well.
 
 - Complex
 - Performance-intensive UIs (games, simulations, etc.)
-- Very barebones component building
-The official egui framework
+- Very barebones component building (egui)
 
 Some code that animates simple shapes and animates them:
 ```rs
