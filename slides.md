@@ -163,6 +163,8 @@ fn main() {
 !!!dancing_strings
 -------------------------------------------------------------------------------
 # Q&A
-!!!painting
-!!!dancing_strings
+- [Source code](https://github.com/Pjiwm/wasm-rust-presentation) for this presentation is available online.
+- Feel free to try out: [mts-presentation.web.app](https://mts-presentation.web.app/)
+- Or scan the QR code:
 
+![QR](bytes://qr.png)

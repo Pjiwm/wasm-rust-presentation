@@ -119,6 +119,9 @@ impl Presentation {
             "bytes://makepad.png",
             include_bytes!("../images/makepad_piano.png"),
         );
+
+        cc.egui_ctx
+            .include_bytes("bytes://qr.png", include_bytes!("../images/QR.png"));
         if let Some(storage) = cc.storage {
             return eframe::get_value(storage, eframe::APP_KEY).unwrap_or_default();
         }
