@@ -135,13 +135,21 @@ impl Presentation {
             some_bool,
             painting,
         } = self;
-
+        let screen_height = ui.ctx().screen_rect().height();
         ui.input(|i| {
             if i.key_pressed(egui::Key::ArrowRight) || i.key_pressed(egui::Key::Space) {
                 *slide_nr = (*slide_nr + 1) % slides.len();
             }
             if i.key_pressed(egui::Key::ArrowLeft) {
                 *slide_nr = (*slide_nr + slides.len() - 1) % slides.len();
+            }
+            if i.pointer.any_click() {
+                if let Some(pos) = i.pointer.interact_pos() {
+                    // Only allow mobile touch on lower third of the screen.
+                    if pos.y > screen_height / 3.0 {
+                        *slide_nr = (*slide_nr + 1) % slides.len();
+                    }
+                }
             }
         });
 
