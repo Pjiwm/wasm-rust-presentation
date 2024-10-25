@@ -119,7 +119,6 @@ impl Presentation {
             "bytes://makepad.png",
             include_bytes!("../images/makepad_piano.png"),
         );
-
         cc.egui_ctx
             .include_bytes("bytes://qr.png", include_bytes!("../images/QR.png"));
         if let Some(storage) = cc.storage {
@@ -148,8 +147,7 @@ impl Presentation {
             }
             if i.pointer.any_click() {
                 if let Some(pos) = i.pointer.interact_pos() {
-                    // Only allow mobile touch on lower third of the screen.
-                    if pos.y > screen_height / 3.0 {
+                    if pos.y > screen_height / 1.28 {
                         *slide_nr = (*slide_nr + 1) % slides.len();
                     }
                 }
